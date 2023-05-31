@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">LeafDoctorApp</string>
+    <string name="email_text">Username</string>
+    <string name="slogan_text">Heal Your Plants</string>
+    <string name="pass_hint">***********</string>
+    <string name="pass_text">Password</string>
+    <string name="sign_in_text">Sign In</string>
+    <string name="sign_up_text">Sign Up</string>
+    <string name="dont_have">Don\'t have an account?</string>
+    <string name="already_have">Already have an account?</string>
+    <string name="fullname_hint">Lorem Ipsum</string>
+    <string name="fullname">Full name</string>
+    <string name="email_hint">myaccount@gmail.com</string>
+    <string name="your_email_address">Your Email Address</string>
+    <string name="get_started_btn">Get Started</string>
+    <string name="home_slogan">Your Personal Plant Doctor in Your Pocket!</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="location">Jawa Timur</string>
+    <string name="location_txt">Location</string>
+    <string name="treatment_recommendations">Treatment Recommendations:</string>
+    <string name="disease_context">Lorem Ipsum Dolor</string>
+    <string name="content_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
+    <string name="choose_label">Choose</string>
+
+    <string-array name="provinsi">
+        <item>Nanggroe Aceh Darussalam</item>
+        <item>...</item>
+    </string-array>
+</resources>
