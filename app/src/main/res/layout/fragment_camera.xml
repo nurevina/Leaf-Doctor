@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.userprofile.UserProfileFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:elevation="5dp"
+        android:textAlignment="center"
+        android:text="@string/camera_hint"
+        app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:elevation="5dp"
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/rg_tanaman"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/camera_center" />
     <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
@@ -52,6 +72,7 @@
     </RadioGroup>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/green_1"

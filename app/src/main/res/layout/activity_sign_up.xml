@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:scrollbars="none"
     android:layout_height="match_parent"
-    android:layout_marginLeft="36dp"
-    android:layout_marginRight="36dp"
-    tools:context=".SignUpActivity">
+    android:paddingStart="36dp"
+    android:paddingEnd="36dp"
+    tools:context=".ui.authentication.SignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/your_email_address"
+            android:text="@string/email_text"
             android:fontFamily="@font/poppins"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"

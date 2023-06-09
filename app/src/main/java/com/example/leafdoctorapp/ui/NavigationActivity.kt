@@ -1,14 +1,20 @@
-package com.example.leafdoctorapp
+package com.example.leafdoctorapp.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.leafdoctorapp.R
+import com.example.leafdoctorapp.core.LoadingDialog
 import com.example.leafdoctorapp.databinding.ActivityNavigationBinding
+import com.example.leafdoctorapp.ui.history.HistoryVM
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNavigationBinding

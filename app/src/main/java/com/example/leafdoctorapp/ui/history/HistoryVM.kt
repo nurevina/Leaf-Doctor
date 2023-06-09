@@ -3,11 +3,50 @@ package com.example.leafdoctorapp.ui.history
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryData
+import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryItem
+import com.example.leafdoctorapp.data.remote.ApiRepository
+import com.example.leafdoctorapp.data.remote.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HistoryVM : ViewModel() {
+@HiltViewModel
+class HistoryVM @Inject constructor(
+    private val apiRepository: ApiRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "History"
+    private val _onGetError = MutableLiveData<Error>()
+    val onGetError: LiveData<Error> get() = _onGetError
+
+    private val _onLoading = MutableLiveData<Boolean>()
+    val onLoading: LiveData<Boolean> get() = _onLoading
+
+    private fun showLoading() {
+        _onLoading.value = true
     }
-    val text: LiveData<String> = _text
+
+    private fun dismissLoading() {
+        _onLoading.value = false
+    }
+
+    private val _onGetHistoryData = MutableLiveData<HistoryData>()
+    val onGetHistoryData : LiveData<HistoryData> get() = _onGetHistoryData
+
+    fun getHistory() {
+        showLoading()
+        viewModelScope.launch {
+            apiRepository.getHistory().fold(
+                onSuccess = {
+                    dismissLoading()
+                    _onGetHistoryData.value = it.data!!
+                },
+                onError = {
+                    dismissLoading()
+                    _onGetError.value = Error(it?.message)
+                }
+            )
+        }
+    }
 }

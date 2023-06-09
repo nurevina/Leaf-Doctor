@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="gray_overlay">#2A323232</color>
     <color name="red">#D82F1D</color>
     <color name="green_1">#4F8929</color>
     <color name="green_2">#72B23F</color>
