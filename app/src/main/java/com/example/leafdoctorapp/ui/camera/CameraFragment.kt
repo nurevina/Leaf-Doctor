@@ -17,10 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.leafdoctorapp.databinding.FragmentCameraBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+@AndroidEntryPoint
 class CameraFragment : Fragment() {
 
 
@@ -34,30 +36,42 @@ class CameraFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val cameraVM: CameraVM by lazy {
+        ViewModelProvider(this)[CameraVM::class.java]
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val cameraVM =
-            ViewModelProvider(this).get(CameraVM::class.java)
+
 
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-        cameraVM.text.observe(viewLifecycleOwner) {
-
-        }
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        cameraVM.result.observe(
+            requireActivity()
+        ) {
+            Toast.makeText(requireContext(), it.map { data ->
+                data.toString()
+            }.toString(), Toast.LENGTH_SHORT).show()
+        }
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
         }
         cameraExecutor = Executors.newSingleThreadExecutor()
     }

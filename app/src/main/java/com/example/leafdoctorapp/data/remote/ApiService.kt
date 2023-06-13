@@ -2,6 +2,7 @@ package com.example.leafdoctorapp.data.remote
 
 import com.example.leafdoctorapp.data.model.networkmodel.request.SignInRequest
 import com.example.leafdoctorapp.data.model.networkmodel.request.SignUpRequest
+import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryDetailResponse
 import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryResponse
 import com.example.leafdoctorapp.data.model.networkmodel.response.SignInResponse
 import com.example.leafdoctorapp.data.model.networkmodel.response.SignUpResponse
@@ -9,6 +10,8 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("authentications")
@@ -23,4 +26,9 @@ interface ApiService {
 
     @GET("history")
     suspend fun getHistory() : Response<HistoryResponse>
+
+    @GET("history/{id}")
+    suspend fun getHistoryDetail(
+        @Path("id") id : String
+    ) : Response<HistoryDetailResponse>
 }

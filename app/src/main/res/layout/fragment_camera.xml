@@ -6,26 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.userprofile.UserProfileFragment">
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#87000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#87000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:elevation="5dp"
-        android:textAlignment="center"
         android:text="@string/camera_hint"
-        app:layout_constraintBottom_toTopOf="@+id/lottieAnimationView" />
+        android:textAlignment="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view2" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:elevation="5dp"
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/rg_tanaman"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/camera_center" />
     <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"

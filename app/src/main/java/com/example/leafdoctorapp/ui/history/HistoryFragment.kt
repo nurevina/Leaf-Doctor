@@ -1,5 +1,6 @@
 package com.example.leafdoctorapp.ui.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,11 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHistory.adapter = adapter
+        adapter.setOnClickListener {
+            val nextScreen = Intent(requireContext(),DetailHistoryActivity::class.java)
+            nextScreen.putExtra("EXTRA_ID", it)
+            activity?.startActivity(nextScreen)
+        }
 
         historyVM.getHistory()
 
@@ -54,9 +60,9 @@ class HistoryFragment : Fragment() {
             if (it.message == "Token maximum age exceeded"){
                 // TODO : Refresh token
             }else{
-                showErrorDialog(message = it.message){
-
-                }
+//                showErrorDialog(message = it.message){
+//
+//                }
             }
         }
 

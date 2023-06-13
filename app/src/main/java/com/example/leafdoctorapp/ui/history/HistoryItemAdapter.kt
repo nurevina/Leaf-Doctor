@@ -14,11 +14,20 @@ import com.example.leafdoctorapp.util.toDate
 class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HViewHolder>() {
 
     private val historyItem = mutableListOf<HistoryItem>()
+    private lateinit var listener : RecyclerViewListener
 
     fun setItem(data: List<HistoryItem>) {
         historyItem.clear()
         historyItem.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun setOnClickListener(onClick : (String)-> Unit){
+        listener = object : RecyclerViewListener{
+            override fun onClick(id: String) {
+                onClick(id)
+            }
+        }
     }
 
     inner class HViewHolder(val binding: ItemHistoryBinding) :
@@ -29,9 +38,10 @@ class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HViewHolder>(
             binding.jenis.text = item.categories
             binding.imgItem.loadUrl(item.imageUrl!!)
             binding.tvItem.text = "Created at : ${item.createdAt?.toDate()}"
-
+            binding.root.setOnClickListener {
+                listener.onClick(item.id!!)
+            }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HViewHolder {
@@ -44,4 +54,8 @@ class HistoryItemAdapter : RecyclerView.Adapter<HistoryItemAdapter.HViewHolder>(
     override fun onBindViewHolder(holder: HViewHolder, position: Int) {
         holder.bind(historyItem[position])
     }
+}
+
+interface RecyclerViewListener{
+    fun onClick(id : String)
 }

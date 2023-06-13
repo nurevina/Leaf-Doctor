@@ -2,6 +2,7 @@ package com.example.leafdoctorapp.data.remote
 
 import com.example.leafdoctorapp.data.model.networkmodel.request.SignInRequest
 import com.example.leafdoctorapp.data.model.networkmodel.request.SignUpRequest
+import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryDetailResponse
 import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryResponse
 import com.example.leafdoctorapp.data.model.networkmodel.response.SignInResponse
 import com.example.leafdoctorapp.data.model.networkmodel.response.SignUpResponse
@@ -20,5 +21,9 @@ class ApiRepositoryImpl @Inject constructor(
 
     override suspend fun getHistory(): ApiResult<HistoryResponse> =
         handleApi { apiService.getHistory() }
+
+    override suspend fun getHistoryDetail(id: String): ApiResult<HistoryDetailResponse> =
+        handleApi { apiService.getHistoryDetail(id) }
+
 
 }

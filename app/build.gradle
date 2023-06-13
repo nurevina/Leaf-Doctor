@@ -40,6 +40,7 @@ android {
     buildToolsVersion '28.0.3'
     buildFeatures {
         viewBinding true
+        mlModelBinding true
     }
 }
 
@@ -106,5 +107,11 @@ dependencies {
 
     //lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //tensor
+    implementation 'org.tensorflow:tensorflow-lite:2.5.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+
 
 }
