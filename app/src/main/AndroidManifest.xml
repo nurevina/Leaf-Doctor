@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:name=".AndroidAppl"
@@ -22,17 +24,18 @@
             android:exported="false" />
         <activity
             android:name=".ui.history.DetailHistoryActivity"
+            android:parentActivityName=".ui.NavigationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.NavigationActivity"
             android:exported="true"
-            android:label="@string/title_activity_navigation"></activity>
+            android:label="@string/title_activity_navigation" />
         <activity
             android:name=".ui.authentication.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".ui.authentication.SignInActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.intro.MainActivity"
             android:exported="true">

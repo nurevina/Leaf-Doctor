@@ -75,7 +75,10 @@ fun Fragment.showErrorDialog(
 fun ImageView.loadUrl(url: String) {
     val glideImage = Glide.with(this)
     glideImage.clear(this)
-    glideImage.load(url).into(this)
+    glideImage
+        .load(url)
+        .error(R.drawable.baseline_broken_image_24)
+        .into(this)
 }
 
 fun String.toDate(): String {

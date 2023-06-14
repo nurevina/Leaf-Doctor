@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.leafdoctorapp.R
+import com.example.leafdoctorapp.core.LoadingDialog
 import com.example.leafdoctorapp.databinding.ActivityDetailHistoryBinding
 import com.example.leafdoctorapp.util.loadUrl
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +21,21 @@ class DetailHistoryActivity : AppCompatActivity() {
         ViewModelProvider(this)[HistoryVM::class.java]
     }
 
+    private val loading: LoadingDialog by lazy {
+        LoadingDialog(this)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
         val id = intent.getStringExtra("EXTRA_ID")
 
         if (id.isNullOrBlank()) {
@@ -30,11 +43,14 @@ class DetailHistoryActivity : AppCompatActivity() {
         } else {
             vm.getHistoryDetail(id)
         }
+        vm.onLoading.observe(this){
+            if (it) loading.show("Loading") else loading.dismiss()
+        }
 
         vm.nGetHistoryDetail.observe(this){
-            binding.jenis.text = it.categories
-            binding.imgItem.loadUrl(it.imageUrl!!)
-            binding.diseaseDetection.text = it.itemData?.prediction
+            binding.jenis.text = it.history?.categories
+            binding.imgItem.loadUrl(it.history?.imageUrl!!)
+            binding.diseaseDetection.text = it.history.data?.labels ?: "Not defined"
 //            binding.detailText.text = it.itemData TODO : GAADA ISINYA DARI RESPONSE LAGI
         }
 

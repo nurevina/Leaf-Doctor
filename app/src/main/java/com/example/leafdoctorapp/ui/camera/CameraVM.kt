@@ -1,88 +1,89 @@
 package com.example.leafdoctorapp.ui.camera
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.leafdoctorapp.R
-import com.example.leafdoctorapp.ml.LiteTomatoesModel
+import com.example.leafdoctorapp.data.model.networkmodel.response.PredictResponse
+import com.example.leafdoctorapp.data.remote.ApiRepository
+import com.example.leafdoctorapp.data.remote.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
-import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
 class CameraVM @Inject constructor(
-    private val tomatoesModel: LiteTomatoesModel,
-    @ApplicationContext applicationContext: Context
-): ViewModel() {
+    @ApplicationContext applicationContext: Context,
+    private val repository: ApiRepository
+) : ViewModel() {
 
-    private val _result = MutableLiveData<List<Int>>()
-    val result : LiveData<List<Int>> get() = _result
+    private val _onUploadImage = MutableLiveData<PredictResponse>()
+    val onUploadImage: LiveData<PredictResponse> get() = _onUploadImage
 
 
-    /***
-     * MASIH BELOM SIAP
-     */
-//    init {
-//        viewModelScope.launch {
-//            val bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.tomat)
-//            _result.value = predictTomatoes(bitmap)
-//        }
-//    }
-    fun predictTomatoes(bitmap: Bitmap) : List<Int>{
-        val scaledBitmap = Bitmap.createScaledBitmap(bitmap,224,224,true)
-        val mlModel = tomatoesModel
-        val byteBuffer = TensorImage.fromBitmap(scaledBitmap).buffer
+    private val _onGetError = MutableLiveData<Error>()
+    val onGetError: LiveData<Error> get() = _onGetError
 
-        val inputFeature0 =
-            TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
-        inputFeature0.loadBuffer(byteBuffer)
+    private val _onLoading = MutableLiveData<Boolean>()
+    val onLoading: LiveData<Boolean> get() = _onLoading
 
-        val outputs = tomatoesModel.process(inputFeature0)
-        val outputTensorBuffer = outputs.outputFeature0AsTensorBuffer
-        return getMax(outputTensorBuffer.floatArray)
+    private fun showLoading() {
+        _onLoading.value = true
     }
 
-    private fun getMax(arr: FloatArray): List<Int> {
-        var ind = 0
-        var ind1 = 0
-        var ind2 = 0
-        var min = 0.0f
-        var max1 = 0.0f
-        var max2 = 0.0f
-
-        for (i in 0..10) {
-            if (arr[i] > min) {
-                min = arr[i]
-                ind = i
-                max1 = arr[i]
-            }
-        }
-        min = 0.0f
-        for (i in 0..10) {
-            if (arr[i] > min && arr[i] < max1) {
-                min = arr[i]
-                ind1 = i
-                max2 = arr[i]
-            }
-        }
-
-        min = 0.0f
-        for (i in 0..10) {
-            if (arr[i] > min && arr[i] < max2) {
-                min = arr[i]
-                ind2 = i
-            }
-        }
-
-        return listOf(ind, ind1, ind2)
+    private fun dismissLoading() {
+        _onLoading.value = false
     }
+
+    fun predictTomato(image: MultipartBody.Part) {
+        showLoading()
+        viewModelScope.launch {
+            repository.predictTomato(image).fold(
+                onSuccess = {
+                    dismissLoading()
+                    _onUploadImage.value = it
+                },
+                onError = {
+                    dismissLoading()
+                    _onGetError.value = Error(it?.message)
+                }
+            )
+        }
+    }
+
+    fun predictPaprika(image: MultipartBody.Part) {
+        showLoading()
+        viewModelScope.launch {
+            repository.predictPaprika(image).fold(
+                onSuccess = {
+                    dismissLoading()
+                    _onUploadImage.value = it
+                },
+                onError = {
+                    dismissLoading()
+                    _onGetError.value = Error(it?.message)
+                }
+            )
+        }
+    }
+
+    fun predictPotato(image: MultipartBody.Part) {
+        showLoading()
+        viewModelScope.launch {
+            repository.predictPotato(image).fold(
+                onSuccess = {
+                    dismissLoading()
+                    _onUploadImage.value = it
+                },
+                onError = {
+                    dismissLoading()
+                    _onGetError.value = Error(it?.message)
+                }
+            )
+        }
+    }
+
 }

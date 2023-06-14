@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.leafdoctorapp.data.model.networkmodel.response.DataHistory
 import com.example.leafdoctorapp.data.model.networkmodel.response.History
 import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryData
 import com.example.leafdoctorapp.data.model.networkmodel.response.HistoryDetailResponse
@@ -36,8 +37,8 @@ class HistoryVM @Inject constructor(
     private val _onGetHistoryData = MutableLiveData<HistoryData>()
     val onGetHistoryData: LiveData<HistoryData> get() = _onGetHistoryData
 
-    private val _onGetHistoryDetail = MutableLiveData<History>()
-    val nGetHistoryDetail: LiveData<History> get() = _onGetHistoryDetail
+    private val _onGetHistoryDetail = MutableLiveData<DataHistory>()
+    val nGetHistoryDetail: LiveData<DataHistory> get() = _onGetHistoryDetail
 
     fun getHistory() {
         showLoading()

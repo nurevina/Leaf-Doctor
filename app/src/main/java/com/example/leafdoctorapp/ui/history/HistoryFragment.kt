@@ -57,13 +57,11 @@ class HistoryFragment : Fragment() {
             adapter.setItem(it.history.orEmpty())
         }
         historyVM.onGetError.observe(requireActivity()){
-            if (it.message == "Token maximum age exceeded"){
-                // TODO : Refresh token
-            }else{
-//                showErrorDialog(message = it.message){
-//
-//                }
-            }
+
+                showErrorDialog(message = it.message){
+
+                }
+
         }
 
         historyVM.onLoading.observe(requireActivity()){
