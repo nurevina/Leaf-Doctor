@@ -61,6 +61,7 @@ class HistoryVM @Inject constructor(
         viewModelScope.launch {
             apiRepository.getHistoryDetail(id).fold(
                 onSuccess = {
+                    dismissLoading()
                     _onGetHistoryDetail.value = it.data!!
                 },
                 onError = {

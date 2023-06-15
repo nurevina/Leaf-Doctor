@@ -57,11 +57,9 @@ class HistoryFragment : Fragment() {
             adapter.setItem(it.history.orEmpty())
         }
         historyVM.onGetError.observe(requireActivity()){
-
                 showErrorDialog(message = it.message){
 
                 }
-
         }
 
         historyVM.onLoading.observe(requireActivity()){
