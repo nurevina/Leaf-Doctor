@@ -1,0 +1,17 @@
+# Introduction
+...
+# Screenshots
+....
+# Libraries
+## Retrofit
+<a href ="https://square.github.io/retrofit/">Retrofit</a> is an easy and fast library to retrieve and upload data via a REST-based web service. Retrofit manages the process of receiving, sending, and creating HTTP requests and responses. It resolves issues before sending an error and crashing the application. It pools connections to reduce latency.
+## Dagger Hilt
+<a href = "https://dagger.dev/hilt/">Hilt</a> provides a standard way to incorporate Dagger dependency injection into an Android application. The goals of Hilt are: To simplify Dagger-related infrastructure for Android apps. To create a standard set of components and scopes to ease setup, readability/understanding, and code sharing between apps.
+## CameraX
+<a href ="https://developer.android.com/jetpack/androidx/releases/camera?hl=id">CameraX</a> is a Jetpack library, built to help make camera app development easier. For new apps, we recommend starting with CameraX. It provides a consistent, easy-to-use API that works across the vast majority of Android devices, with backward-compatibility to Android 5.0 (API level 21).
+# Requirements
+This app will run in sdk <= 21
+# How to install
+1. Download latest apk <a href="https://github.com/nurevina/Leaf-Doctor/releases">releases</a>
+2. Enable install apk from browser in setting
+3. Install apk to your android
