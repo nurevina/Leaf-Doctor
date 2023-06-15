@@ -1,7 +1,16 @@
 # Introduction
 LeafDoctor is an application that can help farmers and agricultural experts identify and monitor plant health conditions quickly and easily using their smartphone cameras. The application will utilize image processing technology and artificial intelligence to recognize leaf disease symptoms. Application features will include disease detection, disease identification, and treatment recommendations, disease progress reporting, and an up-to-date plant disease database.
 # Screenshots
-....
+
+<p align="center">
+  <img src="https://github.com/nurevina/Leaf-Doctor/blob/master/screenshots/Asset%201.png" height="420" width="190"/>
+  <img src="https://github.com/nurevina/Leaf-Doctor/blob/master/screenshots/Asset%202.png" height="420" width="190"/>
+  <img src="https://github.com/nurevina/Leaf-Doctor/blob/master/screenshots/Asset%203.png" height="420" width="190"/>
+  <img src="https://github.com/nurevina/Leaf-Doctor/blob/master/screenshots/Asset%204.png" height="420" width="190"/>
+  <img src="https://github.com/nurevina/Leaf-Doctor/blob/master/screenshots/Asset%205.png" height="420" width="190"/>
+  <img src="https://github.com/nurevina/Leaf-Doctor/blob/master/screenshots/Asset%206.png" height="420" width="190"/>
+</p>
+
 # Libraries
 ## Retrofit
 <a href ="https://square.github.io/retrofit/">Retrofit</a> is an easy and fast library to retrieve and upload data via a REST-based web service. Retrofit manages the process of receiving, sending, and creating HTTP requests and responses. It resolves issues before sending an error and crashing the application. It pools connections to reduce latency.
