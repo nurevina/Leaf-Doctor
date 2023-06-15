@@ -1,5 +1,5 @@
 # Introduction
-...
+LeafDoctor is an application that can help farmers and agricultural experts identify and monitor plant health conditions quickly and easily using their smartphone cameras. The application will utilize image processing technology and artificial intelligence to recognize leaf disease symptoms. Application features will include disease detection, disease identification, and treatment recommendations, disease progress reporting, and an up-to-date plant disease database.
 # Screenshots
 ....
 # Libraries
