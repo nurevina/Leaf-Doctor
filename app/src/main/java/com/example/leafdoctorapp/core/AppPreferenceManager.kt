@@ -12,7 +12,11 @@ interface AppPreferenceManager {
 
 
     var refreshToken: String?
+
+    var fullName : String?
     fun saveRefreshToken(token: String)
+
+    var username : String?
 
     var appFirstLaunch: Boolean
 
@@ -34,6 +38,11 @@ class AppPreferenceManagerImpl(context: Context) :
         set(token) {
             editor.putString(refreshTokenKey, token).apply()
         }
+    override var fullName: String?
+        get() = getString(fullNameKey)
+        set(fullname) {
+            editor.putString(fullNameKey, fullname).apply()
+        }
 
     override var accessToken: String?
         get() = getString(accessTokenKey)
@@ -45,6 +54,12 @@ class AppPreferenceManagerImpl(context: Context) :
     override fun saveRefreshToken(token: String) {
         refreshToken = token
     }
+
+    override var username: String?
+        get() = getString(userNameKey)
+        set(username) {
+            editor.putString(userNameKey, username).apply()
+        }
 
     override fun saveAccessToken(token: String) {
         accessToken = token
@@ -97,6 +112,8 @@ class AppPreferenceManagerImpl(context: Context) :
         private const val accessTokenKey = "API_TOKEN"
         private const val refreshTokenKey = "REFRESH_API_TOKEN"
         private const val appFirstLaunchKey = "APP_FIRST_LAUNCH"
+        private const val fullNameKey = "FULL_NAME_KEY"
+        private const val userNameKey = "USER_NAME_KEY"
         private const val baseUrl = BuildConfig.BUILD_TYPE
     }
 }

@@ -1,7 +1,6 @@
 package com.example.leafdoctorapp.ui.camera
 
 import android.Manifest.permission.CAMERA
-import android.R.attr.data
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -30,10 +29,8 @@ import com.example.leafdoctorapp.databinding.FragmentCameraBinding
 import com.example.leafdoctorapp.ui.history.DetailHistoryActivity
 import com.example.leafdoctorapp.util.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
@@ -44,13 +41,10 @@ import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
 @AndroidEntryPoint
 class CameraFragment : Fragment() {
 
-
     private var imageCapture: ImageCapture? = null
-    private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
 
     private var _binding: FragmentCameraBinding? = null
@@ -58,15 +52,11 @@ class CameraFragment : Fragment() {
         LoadingDialog(requireActivity())
     }
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private val cameraVM: CameraVM by lazy {
         ViewModelProvider(this)[CameraVM::class.java]
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -125,11 +115,8 @@ class CameraFragment : Fragment() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener(Runnable {
-
-            // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-            // Preview
             val preview = Preview.Builder()
                 .build()
                 .also {
@@ -141,14 +128,11 @@ class CameraFragment : Fragment() {
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                 .build()
 
-            // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             try {
-                // Unbind use cases before rebinding
                 cameraProvider.unbindAll()
 
-                // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageCapture
                 )
@@ -161,10 +145,8 @@ class CameraFragment : Fragment() {
     }
 
     private fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
-        // Create time stamped name and MediaStore entry.
         val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
             .format(System.currentTimeMillis())
         val contentValues = ContentValues().apply {
@@ -175,7 +157,6 @@ class CameraFragment : Fragment() {
             }
         }
 
-        // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions
             .Builder(
                 requireActivity().contentResolver,
@@ -184,8 +165,6 @@ class CameraFragment : Fragment() {
             )
             .build()
 
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
@@ -274,9 +253,7 @@ class CameraFragment : Fragment() {
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                // If permissions are not granted,
-                // present a toast to notify the user that
-                // the permissions were not granted.
+
                 Toast.makeText(
                     requireContext(),
                     "Permissions not granted by the user.",
